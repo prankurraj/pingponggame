@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PingPonggame</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js" type="text/javascript"></script>
+
+
+</head>
+<body>
+<div id="oka">
+	
+	<div id="outer">
+
+		<div id="ball"></div>
+		<div id="pad1"></div>
+		<div id="pad2"></div>
+	</div>
+	<div id="oned"><button id="one" onclick="start()"> BEGIN </button></div>
+	<div id="written">Made By- Prankur Raj
+
+	</div>
+</div>
+
+</body>
+	<style type="text/css">
+		
+					*{
+
+						margin: 0px;
+						padding: 0px;
+
+					}
+					/*body{
+					height: 100vh;
+					width: 100vw;
+					
+					}*/
+					body{
+						background-image: url(source.gif);
+						display: flex;
+					}
+					#oka
+					{
+						margin:0px auto;
+					height: 474px;
+					width: 920px;
+					}
+					
+					#ball{
+						position: fixed;
+					width:30px;
+					height: 30px;
+					background-color: red;
+					border-radius: 50%;
+					}
+					#outer{
+						height: 400px;
+						background: yellow;
+						background-image: url(board.jpg);
+						width:800px;
+						margin:0 auto;
+						border: 50px solid #404040;
+					}
+					#pad1{
+								position: absolute;
+
+						width:30px;
+						height:100px;
+						background-color:blue; 
+						background-image: url(po.png);
+					}
+					#pad2{
+								position: absolute;
+
+						width:30px;
+						height:100px;
+						background-color:pink;
+					}
+					#one{
+							
+							
+							padding: 10px 15px;
+								background: #4479BA;
+								color: #FFF;
+
+
+						}
+					#oned{
+						margin-top: 30px;
+						margin-left: 450px;	
+
+						}
+						#written{
+							margin-left: 900px;
+							width: 100px;
+						}
+	
+	</style>
+	<script type="text/javascript">
+	
+
+	var ball= document.getElementById('ball');
+	ball.style.top="100px";
+	ball.style.left="653px";
+	function move(event)
+	{
+
+		if(event.key=='ArrowDown')
+		{
+			if(parseFloat(pad2.style.top.slice(0,-2))+10<=350)
+			{
+				
+				pad2.style.top=parseFloat(pad2.style.top.slice(0,-2))+10+'px';
+			}
+		}
+		if(event.key=='ArrowUp')
+		{	
+			if(parseFloat(pad2.style.top.slice(0,-2))-10>=50)
+			{
+				
+				pad2.style.top=parseFloat(pad2.style.top.slice(0,-2))-10+'px';
+			}
+
+		}
+	
+
+		if(event.keyCode==83)
+		{
+			if(parseFloat(pad1.style.top.slice(0,-2))+10<=350)
+			{
+				pad1.style.top=parseFloat(pad1.style.top.slice(0,-2))+10+'px';
+			
+			}
+		}
+		if(event.keyCode==87)
+		{	
+			if(parseFloat(pad1.style.top.slice(0,-2))-10>=50)
+			{
+				pad1.style.top=parseFloat(pad1.style.top.slice(0,-2))-10+'px';
+				
+			}
+		}
+		
+	}
+
+
+	var pad1=document.getElementById('pad1');
+	var pad2=document.getElementById('pad2');
+	pad1.style.top="210px";
+	pad1.style.left="251px";
+	pad2.style.top=" 210px";
+	pad2.style.left="1020px";
+	 document.body.addEventListener('keydown',move);
+
+	
+
+	var vx=-1;
+	var vy=1;
+	var n;
+	var score1=0;
+	var score2=0;
+	function roll()
+	{
+		var curx=parseFloat(ball.style.left.slice(0,-2));
+		var cury=parseFloat(ball.style.top.slice(0,-2));
+		var ballx=curx+vx;
+		var bally=cury+vy;
+		ball.style.left=ballx+'px';
+		ball.style.top=bally+'px';
+		if(bally==420){
+			vy=-1*vy;
+		}
+		if(bally==50)
+		{
+			vy=-1*vy;
+		}
+		if(ballx<284)
+		{
+			if(bally-parseFloat(pad1.style.top.slice(0,-2))>=0 && bally-parseFloat(pad1.style.top.slice(0,-2))<=90)
+			{
+				vx=-1*vx;
+			}
+			else if(bally-parseFloat(pad1.style.top.slice(0,-2))<0 && bally-parseFloat(pad1.style.top.slice(0,-2))>=-20)    //////on right and left side keep scores...
+			{
+				vx=-1*vx;
+			}
+	
+		}
+		if(ballx<242)
+		{
+
+			alert('second player wins');
+			score1=score1++;
+			reset();
+
+		}
+		if(ballx > 990)
+		{
+			if(bally-parseFloat(pad2.style.top.slice(0,-2))>=0 && bally-parseFloat(pad2.style.top.slice(0,-2))<=90)
+			{
+				vx=-1*vx;
+			}
+			else if(bally-parseFloat(pad2.style.top.slice(0,-2))<0 && bally-parseFloat(pad2.style.top.slice(0,-2))>=-20)
+			{
+				vx=-1*vx;
+			}
+		}
+		if(ballx>1062)
+		{
+
+			alert('first player wins');
+			score2=score2++;
+			reset();
+
+		}
+	}
+		
+
+
+
+		function reset()
+		{
+		ball.style.top="100px";
+		ball.style.left="653px";
+		vx=-1;												//////on right and left side keep scores...
+		vy=1;
+		score1=0;
+		score2=0;
+		pad1.style.top="210px";
+		pad1.style.left="251px";
+		pad2.style.top=" 210px";
+		pad2.style.left="1020px";
+		clearInterval(n);
+
+		}
+		function start()
+		{
+					n=setInterval(roll,10);
+
+
+		}
+
+
+
+
+
+
+
+
+	</script>
+
+</html>
