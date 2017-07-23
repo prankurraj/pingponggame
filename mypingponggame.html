@@ -16,10 +16,13 @@
 		<div id="pad2"></div>
 	</div>
 	<div id="oned"><button id="one" onclick="start()"> BEGIN </button></div>
-	<div id="written">Made By- Prankur Raj
+	<div id="scoreboard">
+	<h2 id="scoreone"> 0</h2>
+	<h2 id="scoretwo"> 0</h2>
+		</div>
 
-	</div>
 </div>
+
 
 </body>
 	<style type="text/css">
@@ -36,7 +39,6 @@
 					
 					}*/
 					body{
-						display: flex;
 /*						background-image:url('wai.jpg'); 
 */					
 							background-color: black; 
@@ -99,12 +101,24 @@
 						#written{
 							margin-left: 900px;
 							width: 100px;
+							color: white;
+						}
+						#scoreboard{
+							display: flex;
+							justify-content: space-between;
+							background-color: black	;
+							width: 1000px;
+							margin-left: 1px;
+							margin-right: 1px;	
+							color: white;
+							height: 100px;
 						}
 	
 	</style>
 	<script type="text/javascript">
 	
-
+	scorePlayerOne = document.getElementById('scoreone');
+	scorePlayerTwo = document.getElementById('scoretwo');
 	var ball= document.getElementById('ball');
 	ball.style.top="100px";
 	ball.style.left="653px";
@@ -152,6 +166,7 @@
 
 	var pad1=document.getElementById('pad1');
 	var pad2=document.getElementById('pad2');
+
 	pad1.style.top="210px";
 	pad1.style.left="251px";
 	pad2.style.top=" 210px";
@@ -196,8 +211,8 @@
 		{
 
 			alert('second player wins');
-			score1=score1++;
-			reset();
+			scorePlayerTwo.textContent = parseFloat(scorePlayerTwo.textContent) + 1;		
+				reset();
 
 		}
 		if(ballx > 990)
@@ -215,7 +230,7 @@
 		{
 
 			alert('first player wins');
-			score2=score2++;
+			scorePlayerOne.textContent = parseFloat(scorePlayerOne.textContent) + 1;		
 			reset();
 
 		}
